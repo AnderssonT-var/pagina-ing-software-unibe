@@ -6,10 +6,13 @@
 <title>UNIBE - Ingeniería de Software</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="assets/css/effects.css">
 <link rel="stylesheet" href="assets/css/modal.css">
 <link rel="stylesheet" href="assets/css/logo.css">
+<link rel="stylesheet" href="assets/css/games/secret-games.css">
 </head>
 
 <body>
@@ -26,7 +29,7 @@
 <!-- Encabezado fijo con logo animado de la carrera -->
 <header>
 <div class="top-logo">
-<div class="logo-particles" id="logoParticles">
+<div class="logo-particles" id="logoParticles" data-modal-target="modal-juegos-secreto" role="button" tabindex="0" aria-label="Abrir sistema secreto de juegos" title="Acceso secreto">
 <canvas id="logoCanvas"></canvas>
 <div class="logo-text">
 <span class="logo-primary">UNI</span>
@@ -140,8 +143,10 @@
 
 <!-- Scripts principales: interacciones de la pagina y animacion del logo -->
 <script src="assets/js/index.js"></script>
+<script src="assets/js/effects.js"></script>
 <script src="assets/js/modal.js"></script>
 <script src="assets/js/image-viewer.js"></script>
+<script src="assets/js/games/secret-games.js"></script>
 <script src="assets/js/logo.js"></script>
 
 </body>

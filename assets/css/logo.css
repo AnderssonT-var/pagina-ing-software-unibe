@@ -18,3 +18,16 @@
 .logo-secondary{font-family:'Orbitron',sans-serif;font-size:1.25rem;font-weight:900;letter-spacing:0.18em;color:#c5edff;text-transform:uppercase;text-shadow:0 0 18px rgba(0,163,255,0.22);}
 /* Origen: alineacion del bloque dentro del header principal. */
 .top-logo{display:flex;justify-content:center;align-items:center;}
+
+@media (max-width:768px){
+	.logo-particles{width:172px;height:84px;min-width:172px;border-radius:20px;}
+	.logo-particles::after{border-radius:20px;}
+	.logo-primary{font-size:1.34rem;letter-spacing:0.14em;}
+	.logo-secondary{font-size:1.04rem;letter-spacing:0.14em;}
+}
+
+@media (max-width:480px){
+	.logo-particles{width:152px;height:74px;min-width:152px;}
+	.logo-primary{font-size:1.14rem;}
+	.logo-secondary{font-size:.92rem;}
+}

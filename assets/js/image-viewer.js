@@ -110,6 +110,7 @@ function initImageViewer() {
 
   imageStage.addEventListener("mousedown", (event) => {
     if (zoomLevel <= 1) return;
+    if (event.button !== 0) return;
     dragging = true;
     imageStage.classList.add("is-dragging");
     dragStartX = event.clientX - panX;

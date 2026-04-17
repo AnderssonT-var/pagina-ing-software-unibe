@@ -12,6 +12,7 @@ if (modalRoot) {
     "pages/modals/menu-certificaciones.html",
     "pages/modals/menu-admisiones.html",
     "pages/modals/menu-eventos.html",
+    "pages/modals/games/modal-juegos-secreto.html",
     "pages/modals/shared.html",
   ];
   try {
@@ -38,6 +39,26 @@ function openModal(modalElement) {
   modalElement.style.display = "block";
   void modalElement.offsetWidth;
   modalElement.classList.add("is-open");
+  window.dispatchEvent(new CustomEvent("modal:opened", {
+    detail: { id: modalElement.id, modal: modalElement }
+  }));
+
+  // Refuerzo visual con Anime.js sin romper el fallback CSS.
+  if (typeof window.anime === "function") {
+    const panel = modalElement.querySelector(".modal-content");
+    if (panel) {
+      window.anime.remove(panel);
+      window.anime({
+        targets: panel,
+        opacity: [0, 1],
+        translateY: [24, 0],
+        scale: [0.975, 1],
+        duration: 460,
+        easing: "easeOutExpo"
+      });
+
+    }
+  }
 }
 
 function closeModal(modalElement) {
@@ -48,11 +69,26 @@ function closeModal(modalElement) {
   setTimeout(() => {
     modalElement.classList.remove("is-closing");
     modalElement.style.display = "none";
+    window.dispatchEvent(new CustomEvent("modal:closed", {
+      detail: { id: modalElement.id, modal: modalElement }
+    }));
   }, 220);
 }
 
 modalLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const modalId = link.getAttribute("data-modal-target");
+    const modalElement = document.getElementById(modalId);
+    openModal(modalElement);
+  });
+});
+
+// Permite abrir el modal secreto del logo con teclado (Enter/Espacio).
+modalLinks.forEach((link) => {
+  link.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
     const modalId = link.getAttribute("data-modal-target");

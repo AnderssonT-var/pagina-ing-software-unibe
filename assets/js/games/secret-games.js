@@ -1,6 +1,7 @@
 let secretGamesInitialized = false;
 const MARIO_GAME_PATH = "assets/games/fullscreenmario/Source/index.html";
 const PINBALL_GAME_PATH = "assets/games/pinball-xr/dist/index.html";
+const PACMAN_GAME_PATH = "assets/games/pacman/index.html";
 
 function initSecretGamesModal() {
   if (secretGamesInitialized) return;
@@ -129,6 +130,41 @@ function initSecretGamesModal() {
     playerFrame.src = `${PINBALL_GAME_PATH}?t=${Date.now()}`;
   }
 
+  function launchPacmanInPlayer() {
+    playerTitle.textContent = "Juego: Pac-Man";
+    showPlayerOverlay("Inicializando Pac-Man...");
+    setPlayerState("CARGANDO");
+
+    const onLoad = () => {
+      setPlayerState("ONLINE");
+      hidePlayerOverlay();
+      playerFrame.removeEventListener("load", onLoad);
+      playerFrame.removeEventListener("error", onError);
+      playerFrame.dataset.ready = "true";
+    };
+
+    const onError = () => {
+      setPlayerState("ERROR");
+      showPlayerOverlay("No se pudo cargar Pac-Man. Revisa ruta/servidor.");
+      playerFrame.removeEventListener("load", onLoad);
+      playerFrame.removeEventListener("error", onError);
+    };
+
+    playerFrame.addEventListener("load", onLoad);
+    playerFrame.addEventListener("error", onError);
+
+    // Performance optimization: disable FX layers during gameplay
+    if (fxLayer) fxLayer.style.display = "none";
+    if (gridLayer) gridLayer.style.display = "none";
+    if (vignetteLayer) vignetteLayer.style.display = "none";
+    closeModalDirect(secretModal);
+    openModalDirect(playerModal);
+    window.dispatchEvent(new CustomEvent("arcade:performance", {
+      detail: { enabled: true }
+    }));
+    playerFrame.src = `${PACMAN_GAME_PATH}?t=${Date.now()}`;
+  }
+
   function selectThumb(activeGame) {
     thumbs.forEach((thumb) => {
       thumb.classList.toggle("is-active", thumb.dataset.game === activeGame);
@@ -148,9 +184,14 @@ function initSecretGamesModal() {
       return;
     }
 
+    if (gameKey === "pacman") {
+      launchPacmanInPlayer();
+      return;
+    }
+
     playerTitle.textContent = gameKey === "firewall" ? "Juego: Firewall Defender" : "Juego: Bug Hunter";
     setPlayerState("BETA");
-    showPlayerOverlay("Modulo en desarrollo. Selecciona FullScreenMario o Pinball XR para jugar ahora.");
+    showPlayerOverlay("Modulo en desarrollo. Selecciona FullScreenMario, Pinball XR o Pac-Man para jugar ahora.");
     playerFrame.src = "about:blank";
     closeModalDirect(secretModal);
     openModalDirect(playerModal);

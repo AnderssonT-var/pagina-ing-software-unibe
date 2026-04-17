@@ -1,0 +1,78 @@
+<!-- Modales de la seccion: Eventos -->
+<!-- Incluye: Galeria de eventos, Calendario de eventos -->
+
+<!-- Modal de galeria interactiva por categoria y ano -->
+<div id="modal-galeria" class="modal">
+<div class="modal-content gallery-modal-content">
+<span class="close" data-modal="modal-galeria">&times;</span>
+<h2>Galeria de Eventos</h2>
+
+<!-- Filtro principal por tipo de evento -->
+<div class="gallery-tabs" role="tablist" aria-label="Categorias de galeria">
+<button class="gallery-tab is-active" data-category="graduaciones" role="tab" type="button">Graduaciones</button>
+<button class="gallery-tab" data-category="academicos" role="tab" type="button">Eventos Academicos</button>
+<button class="gallery-tab" data-category="ferias" role="tab" type="button">Proyectos y Ferias Tecnologicas</button>
+<button class="gallery-tab" data-category="institucionales" role="tab" type="button">Actividades Institucionales</button>
+<button class="gallery-tab" data-category="logros" role="tab" type="button">Logros y Reconocimientos</button>
+</div>
+
+<!-- Filtro secundario por ano -->
+<div class="gallery-years" role="tablist" aria-label="Anos de eventos">
+<button class="gallery-year is-active" data-year="2025" type="button">2025</button>
+<button class="gallery-year" data-year="2026" type="button">2026</button>
+<button class="gallery-year" data-year="2027" type="button">2027</button>
+</div>
+
+<!-- Cuadricula de imagenes filtrable -->
+<div class="gallery-grid">
+<article class="gallery-item" data-category="graduaciones" data-year="2025"><img src="https://picsum.photos/seed/unibe-grad-1/900/520" alt="Graduacion 2025"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="graduaciones" data-year="2026"><img src="https://picsum.photos/seed/unibe-grad-2/900/520" alt="Graduacion 2026"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="graduaciones" data-year="2027"><img src="https://picsum.photos/seed/unibe-grad-3/900/520" alt="Graduacion 2027"><div class="gallery-overlay"></div></article>
+
+<article class="gallery-item" data-category="academicos" data-year="2025"><img src="https://picsum.photos/seed/unibe-acad-1/900/520" alt="Evento academico 2025"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="academicos" data-year="2026"><img src="https://picsum.photos/seed/unibe-acad-2/900/520" alt="Evento academico 2026"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="academicos" data-year="2027"><img src="https://picsum.photos/seed/unibe-acad-3/900/520" alt="Evento academico 2027"><div class="gallery-overlay"></div></article>
+
+<article class="gallery-item" data-category="ferias" data-year="2025"><img src="https://picsum.photos/seed/unibe-feria-1/900/520" alt="Feria tecnologica 2025"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="ferias" data-year="2026"><img src="https://picsum.photos/seed/unibe-feria-2/900/520" alt="Feria tecnologica 2026"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="ferias" data-year="2027"><img src="https://picsum.photos/seed/unibe-feria-3/900/520" alt="Feria tecnologica 2027"><div class="gallery-overlay"></div></article>
+
+<article class="gallery-item" data-category="institucionales" data-year="2025"><img src="https://picsum.photos/seed/unibe-inst-1/900/520" alt="Actividad institucional 2025"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="institucionales" data-year="2026"><img src="https://picsum.photos/seed/unibe-inst-2/900/520" alt="Actividad institucional 2026"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="institucionales" data-year="2027"><img src="https://picsum.photos/seed/unibe-inst-3/900/520" alt="Actividad institucional 2027"><div class="gallery-overlay"></div></article>
+
+<article class="gallery-item" data-category="logros" data-year="2025"><img src="https://picsum.photos/seed/unibe-logro-1/900/520" alt="Logro y reconocimiento 2025"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="logros" data-year="2026"><img src="https://picsum.photos/seed/unibe-logro-2/900/520" alt="Logro y reconocimiento 2026"><div class="gallery-overlay"></div></article>
+<article class="gallery-item" data-category="logros" data-year="2027"><img src="https://picsum.photos/seed/unibe-logro-3/900/520" alt="Logro y reconocimiento 2027"><div class="gallery-overlay"></div></article>
+</div>
+</div>
+</div>
+
+<!-- Modal de calendario academico y eventos institucionales -->
+<div id="modal-calendario" class="modal">
+<div class="modal-content calendar-modal-content">
+<span class="close" data-modal="modal-calendario">&times;</span>
+<h2>Calendario de Eventos</h2>
+
+<div class="calendar-shell">
+<div class="calendar-nav">
+<button type="button" id="calendar-prev" aria-label="Mes anterior">&#10094;</button>
+<h3 id="calendar-title">Abril 2026</h3>
+<button type="button" id="calendar-next" aria-label="Mes siguiente">&#10095;</button>
+</div>
+
+<div class="calendar-weekdays">
+<span>Lun</span><span>Mar</span><span>Mie</span><span>Jue</span><span>Vie</span><span>Sab</span><span>Dom</span>
+</div>
+
+<div id="calendar-grid" class="calendar-grid-real"></div>
+
+<div class="calendar-events-panel">
+<h4 id="calendar-day-label">Selecciona un dia</h4>
+<ul id="calendar-events-list">
+<li>No hay eventos para este dia.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>

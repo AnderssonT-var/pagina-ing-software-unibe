@@ -1,0 +1,20 @@
+/*
+	logo.css
+	Origen general: estilos del bloque de logo superior (encabezado),
+	usados junto con la animacion en assets/js/logo.js.
+*/
+
+/* Origen: contenedor del logo con efecto glass y brillo ambiental. */
+.logo-particles{position:relative;width:200px;height:98px;min-width:200px;display:flex;align-items:center;justify-content:center;border-radius:28px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(0,224,255,0.16);box-shadow:0 0 40px rgba(0,224,255,0.08);}
+/* Origen: capas de iluminacion decorativa del panel del logo. */
+.logo-particles::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 35%,rgba(0,224,255,0.18),transparent 38%),radial-gradient(circle at 70% 65%,rgba(51,102,255,0.14),transparent 32%);pointer-events:none;}
+.logo-particles::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,0.06);pointer-events:none;border-radius:28px;}
+/* Origen: canvas de particulas controlado por logo.js. */
+.logo-particles canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transition:transform .35s ease;}
+.logo-particles:hover canvas{transform:scale(1.03);}
+/* Origen: texto institucional del logo (UNI / B.E). */
+.logo-text{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.logo-primary{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:0.18em;color:#e8f9ff;text-transform:uppercase;text-shadow:0 0 20px rgba(0,224,255,0.35);}
+.logo-secondary{font-family:'Orbitron',sans-serif;font-size:1.25rem;font-weight:900;letter-spacing:0.18em;color:#c5edff;text-transform:uppercase;text-shadow:0 0 18px rgba(0,163,255,0.22);}
+/* Origen: alineacion del bloque dentro del header principal. */
+.top-logo{display:flex;justify-content:center;align-items:center;}

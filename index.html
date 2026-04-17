@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIBE - Ingeniería de Software</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="assets/css/modal.css">
+<link rel="stylesheet" href="assets/css/logo.css">
+</head>
+
+<body>
+
+<!-- Pantalla de carga inicial con efecto matrix y barra de progreso -->
+<div id="intro">
+<canvas id="matrix"></canvas>
+<div style="z-index:2;text-align:center;">
+<h2>Inicializando sistema...</h2>
+<div id="progressBar"><div id="progress"></div></div>
+</div>
+</div>
+
+<!-- Encabezado fijo con logo animado de la carrera -->
+<header>
+<div class="top-logo">
+<div class="logo-particles" id="logoParticles">
+<canvas id="logoCanvas"></canvas>
+<div class="logo-text">
+<span class="logo-primary">UNI</span>
+<span class="logo-secondary">B.E</span>
+</div>
+</div>
+</div>
+</header>
+
+
+
+<!-- Seccion principal con titulo y mensaje institucional -->
+<section class="hero">
+<div class="hero-content">
+<h1>Ingeniería de Software</h1>
+<p>Innovación, Desarrollo y Calidad en Tecnología de Software</p>
+</div>
+</section>
+
+<!-- Tarjetas de navegacion con submenus por cada area -->
+<section class="menu-cards">
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0001.png" alt="Icono Carrera" />
+</div>
+<h3>Carrera</h3>
+</div>
+<div class="submenu">
+<a href="#" id="perfil-egresado" data-modal-target="modal-carrera">Perfil del egresado</a>
+<a href="#" id="objetivos" data-modal-target="modal-carrera">Objetivos</a>
+<a href="#" id="campo-laboral" data-modal-target="modal-carrera">Campo laboral</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0002.png" alt="Icono Qué Aprenderás" />
+</div>
+<h3>Qué Aprenderás</h3>
+</div>
+<div class="submenu">
+<a href="#" data-modal-target="modal-enfoque-carrera">Enfoque de la carrera</a>
+<a href="#" data-modal-target="modal-tecnologias">Tecnologías</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0003.png" alt="Icono Plan de Estudios" />
+</div>
+<h3>Plan de Estudios</h3>
+</div>
+<div class="submenu">
+<a href="#" id="malla-curricular" data-modal-target="modal-malla">Malla curricular</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0004.png" alt="Icono Proyectos" />
+</div>
+<h3>Proyectos</h3>
+</div>
+<div class="submenu">
+<a href="#" data-modal-target="modal-proyectos-realizados">Proyectos realizados</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0005.png" alt="Icono Certificaciones" />
+</div>
+<h3>Certificaciones</h3>
+</div>
+<div class="submenu">
+<a href="#" data-modal-target="modal-certificaciones">Certificaciones</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0006.png" alt="Icono Admisiones" />
+</div>
+<h3>Admisiones</h3>
+</div>
+<div class="submenu">
+<a href="#" data-modal-target="modal-requisitos-ingreso">Requisitos de ingreso</a>
+<a href="#" data-modal-target="modal-proceso-inscripcion">Proceso de inscripción</a>
+</div>
+</div>
+<div class="menu-card">
+<div class="card-header">
+<div class="card-icon">
+<img src="assets/images/0007.png" alt="Icono Eventos" />
+</div>
+<h3>Eventos</h3>
+</div>
+<div class="submenu">
+<a href="#" id="galeria-eventos" data-modal-target="modal-galeria">Galería de eventos</a>
+<a href="#" id="calendario-eventos" data-modal-target="modal-calendario">Calendario de eventos</a>
+</div>
+</div>
+</section>
+
+<!-- Contenedor donde se inyectan dinamicamente los modales desde pages/modals.html -->
+<div id="modal-root"></div>
+
+<!-- Lienzo para el fondo 3D animado -->
+<canvas id="bg"></canvas>
+
+<!-- Scripts principales: interacciones de la pagina y animacion del logo -->
+<script src="assets/js/index.js"></script>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/image-viewer.js"></script>
+<script src="assets/js/logo.js"></script>
+
+</body>
+</html>

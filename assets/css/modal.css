@@ -1,0 +1,157 @@
+/*
+	modal.css
+	Origen general: estilos movidos desde index.css durante la separacion de responsabilidades.
+	Incluye: animaciones de modal, modal base, malla curricular, galeria, calendario y visor.
+*/
+
+/* ANIMACIONES MODAL - Origen: transiciones de entrada/salida usadas por openModal/closeModal en index.js. */
+@keyframes modalFadeIn{
+	from{opacity:0;}
+	to{opacity:1;}
+}
+
+@keyframes modalFadeOut{
+	from{opacity:1;}
+	to{opacity:0;}
+}
+
+@keyframes modalPanelIn{
+	from{opacity:0;transform:translateY(18px) scale(.98);}
+	to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@keyframes modalPanelOut{
+	from{opacity:1;transform:translateY(0) scale(1);}
+	to{opacity:0;transform:translateY(12px) scale(.985);}
+}
+
+/* MODAL BASE - Origen: plantilla comun para todos los modales inyectados desde pages/modals/*.html. */
+.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;}
+.modal.is-open{animation:modalFadeIn .28s ease forwards;}
+.modal.is-closing{animation:modalFadeOut .22s ease forwards;}
+.modal-content{position:relative;background:rgba(4,16,36,0.95);border:1px solid rgba(0,200,255,0.32);border-radius:28px;padding:30px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;margin:5% auto;color:white;box-shadow:0 20px 60px rgba(0,80,150,0.24);}
+.modal.is-open .modal-content{animation:modalPanelIn .32s cubic-bezier(.22,1,.36,1) both;}
+.modal.is-closing .modal-content{animation:modalPanelOut .22s ease both;}
+.modal-content::before{content:'';position:absolute;inset:0;border-radius:28px;padding:1px;background:linear-gradient(180deg,rgba(0,255,255,0.28),rgba(0,160,255,0.15));mask:linear-gradient(#fff 0 0);pointer-events:none;}
+.close{position:absolute;top:15px;right:20px;color:#aaa;font-size:28px;font-weight:bold;cursor:pointer;}
+.close:hover,.close:focus{color:#00e0ff;}
+.modal h2{color:#e8f9ff;text-shadow:0 0 14px rgba(0,210,255,0.16);margin-bottom:20px;}
+.modal-section{margin-top:22px;padding-top:18px;border-top:1px solid rgba(0,200,255,0.16);}
+.modal-section:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+.modal-section h3{margin:0 0 12px;color:#8ae8ff;font-size:1.05rem;text-shadow:0 0 12px rgba(0,210,255,0.18);}
+.modal p{line-height:1.6;margin-bottom:15px;}
+.modal ul{margin:15px 0;padding-left:20px;}
+.modal li{margin-bottom:8px;}
+.modal-empty-state{min-height:180px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(109,224,255,0.28);border-radius:18px;background:rgba(6,20,42,0.52);color:#9edcf2;text-align:center;padding:24px;}
+.modal-empty-state p{margin:0;font-size:1rem;letter-spacing:.02em;}
+
+/* STUDY PLAN MODAL - Origen: diseno de malla curricular (tabla amplia + conectores SVG). */
+.studyplan-modal-content{width:95vw;max-width:95vw;height:95vh;max-height:95vh;margin:2.5vh auto;padding:20px 18px 18px;border-radius:24px;background:linear-gradient(180deg,rgba(8,22,46,0.96),rgba(3,12,30,0.96));box-shadow:0 0 0 1px rgba(90,220,255,0.35),0 0 36px rgba(0,170,255,0.2),inset 0 0 45px rgba(0,170,255,0.09);display:flex;flex-direction:column;gap:12px;overflow:hidden;}
+.studyplan-modal-content h2{margin:0;font-size:1.65rem;letter-spacing:.2px;text-align:center;}
+.studyplan-summary{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid rgba(70,205,255,0.2);}
+.studyplan-chip{background:rgba(9,34,63,0.82);border:1px solid rgba(78,214,255,0.34);border-radius:999px;padding:7px 12px;color:#d7f4ff;font-size:.82rem;}
+.studyplan-board-wrap{position:relative;flex:1;min-height:0;overflow:auto;padding-right:2px;}
+.studyplan-download{margin-left:auto;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(101,232,255,0.46);background:linear-gradient(180deg,rgba(26,186,237,0.34),rgba(11,87,140,0.34));color:#dff6ff;text-decoration:none;border-radius:999px;padding:7px 14px;font-size:.8rem;font-weight:700;transition:all .2s ease;}
+.studyplan-download:hover{border-color:rgba(150,243,255,0.82);box-shadow:0 0 14px rgba(0,205,255,0.28);color:#ffffff;}
+.studyplan-download-icon{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.studyplan-links{position:absolute;left:0;top:0;width:1240px;height:860px;pointer-events:none;z-index:1;}
+.studyplan-links path{fill:none;stroke:rgba(214,245,255,0.58);stroke-width:1.6;stroke-dasharray:5 4;marker-end:url(#studyplan-arrow);}
+.studyplan-links marker path{fill:rgba(214,245,255,0.68);stroke:none;}
+.studyplan-table{position:relative;z-index:2;width:100%;min-width:1240px;border-collapse:separate;border-spacing:0;border:1px solid rgba(95,220,255,0.35);border-radius:14px;overflow:hidden;background:rgba(2,14,30,0.56);}
+.studyplan-table th,.studyplan-table td{border-right:1px solid rgba(90,210,255,0.18);border-top:1px solid rgba(90,210,255,0.18);padding:7px 8px;vertical-align:top;}
+.studyplan-table thead th{border-top:none;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:10px 8px;}
+.studyplan-table thead .head-org,.studyplan-table thead .head-period,.studyplan-table thead .head-hours{background:#f0b316;color:#141414;}
+.studyplan-table thead .head-basic{background:#b4da8f;color:#1a2c11;}
+.studyplan-table thead .head-prof{background:#89d0e8;color:#0f2c39;}
+.studyplan-table thead .head-int{background:#f2bd84;color:#3d2208;}
+.studyplan-table tr > *:last-child{border-right:none;}
+.org-col{width:42px;min-width:42px;background:rgba(240,179,22,0.95);color:#181818;padding:0;border-top:1px solid rgba(130,95,0,0.4);}
+.org-col span{display:flex;align-items:center;justify-content:center;height:100%;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.74rem;letter-spacing:.08em;padding:8px 0;text-transform:uppercase;font-weight:700;}
+.period-cell,.hours-cell{width:58px;min-width:58px;text-align:center;background:rgba(240,179,22,0.92);color:#181818;font-weight:700;vertical-align:middle;}
+.cell-flow{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;min-height:46px;}
+.course-card{border-radius:8px;padding:7px 8px 6px;min-width:132px;max-width:220px;box-shadow:0 6px 12px rgba(3,10,20,0.28);line-height:1.2;}
+.course-card span{display:block;font-size:.76rem;font-weight:700;}
+.course-card small{display:block;font-size:.67rem;opacity:.88;margin-top:4px;}
+.course-card.basic{background:linear-gradient(180deg,#d8efbe,#bedd95);color:#18370b;border:1px solid rgba(80,122,41,0.45);}
+.course-card.prof{background:linear-gradient(180deg,#b8e8f4,#8ed0e4);color:#0e3444;border:1px solid rgba(33,108,133,0.4);}
+.course-card.int{background:linear-gradient(180deg,#ffd5a8,#f4b97d);color:#4a2408;border:1px solid rgba(156,92,32,0.42);}
+
+/* EVENTOS: GALERIA - Origen: modal con filtros por categoria/ano y grid de imagenes. */
+.gallery-modal-content{width:95vw;max-width:95vw;height:95vh;max-height:95vh;margin:2.5vh auto;padding:24px 24px 26px;border-radius:24px;background:linear-gradient(180deg,rgba(8,22,46,0.95),rgba(3,12,30,0.95));box-shadow:0 0 0 1px rgba(90,220,255,0.35),0 0 36px rgba(0,170,255,0.2),inset 0 0 45px rgba(0,170,255,0.09);}
+.gallery-modal-content h2{margin:0 0 14px;font-size:2rem;letter-spacing:.2px;}
+.gallery-modal-content .close{top:14px;right:20px;font-size:42px;line-height:1;color:#66d9ff;text-shadow:0 0 12px rgba(0,225,255,0.4);}
+.gallery-tabs,.gallery-years{display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scrollbar-width:none;}
+.gallery-tabs::-webkit-scrollbar,.gallery-years::-webkit-scrollbar{display:none;}
+.gallery-tabs{padding:10px 0 14px;border-top:1px solid rgba(70,205,255,0.2);border-bottom:1px solid rgba(70,205,255,0.2);}
+.gallery-years{padding:10px 0 12px;margin-bottom:14px;}
+.gallery-tab,.gallery-year{border:1px solid rgba(82,214,255,0.26);background:rgba(8,29,58,0.82);color:#d7f4ff;border-radius:10px;padding:8px 16px;font-family:inherit;font-size:0.95rem;white-space:nowrap;cursor:pointer;transition:all .25s ease;}
+.gallery-tab:hover,.gallery-year:hover{border-color:rgba(120,235,255,0.62);color:#ffffff;}
+.gallery-tab.is-active,.gallery-year.is-active{background:linear-gradient(180deg,rgba(31,185,255,0.35),rgba(18,115,190,0.35));border-color:rgba(110,238,255,0.85);box-shadow:0 0 16px rgba(0,220,255,0.3);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.gallery-item{position:relative;height:162px;border-radius:10px;border:1px solid rgba(66,210,255,0.48);overflow:hidden;background:#07162e;display:flex;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.03) brightness(.78) hue-rotate(-10deg);transition:transform .35s ease,filter .35s ease;}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,130,255,0.12),rgba(0,16,45,0.35));box-shadow:inset 0 0 0 1px rgba(90,230,255,0.08);pointer-events:none;}
+.gallery-item:hover{border-color:rgba(120,240,255,0.85);box-shadow:0 0 18px rgba(0,190,255,0.28);}
+.gallery-item:hover img{transform:scale(1.03);filter:saturate(1.12) contrast(1.05) brightness(.86) hue-rotate(-10deg);}
+
+/* EVENTOS: CALENDARIO - Origen: modal de calendario mensual con dias seleccionables y panel de eventos. */
+.calendar-modal-content{width:90vw;max-width:90vw;height:90vh;max-height:90vh;margin:5vh auto;display:flex;flex-direction:column;gap:12px;overflow:hidden;}
+.calendar-shell{display:flex;flex-direction:column;gap:10px;height:100%;min-height:0;}
+.calendar-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 10px;border-bottom:1px solid rgba(70,205,255,0.2);}
+.calendar-nav h3{margin:0;font-size:1.2rem;color:#e8f9ff;letter-spacing:.3px;}
+.calendar-nav button{width:38px;height:38px;border-radius:10px;border:1px solid rgba(82,214,255,0.3);background:rgba(8,29,58,0.82);color:#d7f4ff;font-size:1.1rem;cursor:pointer;transition:all .2s ease;}
+.calendar-nav button:hover{border-color:rgba(120,235,255,0.62);box-shadow:0 0 14px rgba(0,220,255,0.22);}
+.calendar-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:4px 0;}
+.calendar-weekdays span{text-align:center;font-size:.82rem;letter-spacing:.06em;color:#95dfff;text-transform:uppercase;}
+.calendar-grid-real{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;}
+.calendar-day{position:relative;height:74px;border-radius:10px;border:1px solid rgba(66,210,255,0.24);background:rgba(8,29,58,0.62);color:#dff5ff;padding:8px;display:flex;align-items:flex-start;justify-content:flex-end;cursor:pointer;transition:all .2s ease;}
+.calendar-day:hover{border-color:rgba(122,238,255,0.68);transform:translateY(-1px);}
+.calendar-day.is-muted{opacity:.35;pointer-events:none;}
+.calendar-day.has-event{border-color:rgba(95,229,255,0.65);box-shadow:0 0 0 1px rgba(95,229,255,0.35), inset 0 0 20px rgba(0,170,255,0.14);}
+.calendar-day.has-event::after{content:'';position:absolute;left:8px;bottom:8px;width:8px;height:8px;border-radius:50%;background:#52e2ff;box-shadow:0 0 10px rgba(82,226,255,0.65);}
+.calendar-day.is-selected{background:linear-gradient(180deg,rgba(31,185,255,0.35),rgba(18,115,190,0.35));border-color:rgba(110,238,255,0.95);}
+.calendar-events-panel{margin-top:8px;padding:12px;border:1px solid rgba(66,210,255,0.34);border-radius:12px;background:linear-gradient(180deg,rgba(11,34,65,0.78),rgba(5,20,45,0.88));overflow:auto;min-height:140px;max-height:35%;}
+.calendar-events-panel h4{margin:0 0 10px;color:#c8efff;font-size:1rem;}
+.calendar-events-panel ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;}
+.calendar-events-panel li{color:#c6e9fb;line-height:1.4;}
+
+/* VISOR DE IMAGEN - Origen: modal compartido con zoom/drag de imagenes de galeria. */
+.image-viewer-content{width:96vw;max-width:96vw;height:92vh;max-height:92vh;margin:4vh auto;padding:14px 14px 18px;display:flex;flex-direction:column;gap:10px;}
+.image-toolbar{display:flex;justify-content:flex-end;gap:8px;padding-right:48px;}
+.image-toolbar button{border:1px solid rgba(100,230,255,0.45);background:rgba(8,34,66,0.85);color:#dcf5ff;border-radius:8px;padding:7px 12px;font-family:inherit;cursor:pointer;transition:all .2s ease;}
+.image-toolbar button:hover{border-color:rgba(130,240,255,0.8);box-shadow:0 0 12px rgba(0,200,255,0.24);}
+.image-stage{position:relative;flex:1;overflow:hidden;border:1px solid rgba(75,215,255,0.4);border-radius:12px;background:radial-gradient(circle at center,rgba(10,35,70,0.72),rgba(3,14,32,0.96));cursor:grab;display:flex;align-items:center;justify-content:center;}
+.image-stage.is-dragging{cursor:grabbing;}
+#image-viewer-img{max-width:none;max-height:none;user-select:none;transform:translate(0,0) scale(1);transform-origin:center center;transition:transform .08s linear;will-change:transform;}
+
+/* RESPONSIVE (TABLET) - Origen: ajustes de modales para <=900px. */
+@media (max-width:900px){
+	.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+	.gallery-modal-content h2{font-size:1.7rem;}
+	.calendar-day{height:64px;}
+	.studyplan-modal-content h2{font-size:1.35rem;}
+	.studyplan-modal-content{padding:16px 12px;}
+	.studyplan-links{display:none;}
+	.studyplan-table{min-width:1080px;}
+}
+
+/* RESPONSIVE (MOBILE) - Origen: optimizacion de espacios y tipografias para <=600px. */
+@media (max-width:600px){
+	.gallery-grid{grid-template-columns:1fr;}
+	.gallery-modal-content{padding:18px 14px 16px;}
+	.gallery-modal-content .close{font-size:34px;right:14px;}
+	.calendar-modal-content{padding:18px 12px 14px;}
+	.calendar-weekdays span{font-size:.72rem;}
+	.calendar-day{height:54px;font-size:.86rem;padding:6px;}
+	.studyplan-modal-content{width:95vw;max-width:95vw;height:95vh;max-height:95vh;margin:2.5vh auto;padding:12px 10px;}
+	.studyplan-modal-content h2{font-size:1.08rem;padding-right:36px;}
+	.studyplan-summary{gap:7px;padding-bottom:8px;}
+	.studyplan-chip{font-size:.72rem;padding:6px 10px;}
+	.studyplan-download{margin-left:0;}
+	.studyplan-links{display:none;}
+	.studyplan-table{min-width:980px;}
+	.studyplan-table th,.studyplan-table td{padding:6px 5px;}
+	.course-card{min-width:118px;max-width:170px;padding:6px;}
+	.course-card span{font-size:.7rem;}
+	.course-card small{font-size:.62rem;}
+}

@@ -1,0 +1,72 @@
+/*
+	index.css
+	Origen general: estilos base de la portada principal del proyecto UNIBE.
+	Nota: este archivo contiene solo layout/fondo/hero/menu del index.
+	Los estilos de modales se movieron a assets/css/modal.css.
+*/
+
+/* Origen: base visual global definida para la landing principal. */
+body{margin:0;font-family:'Orbitron',sans-serif;background:#05040c;color:white;overflow-x:hidden;overflow-y:auto;min-height:100vh;display:block;}
+
+/* INTRO - Origen: pantalla de carga matrix implementada en index.js (#intro, #matrix, #progress). */
+#intro{position:fixed;width:100%;height:100%;background:black;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:9999;}
+#matrix{position:absolute;width:100%;height:100%;}
+#progressBar{width:300px;height:10px;background:#111;border-radius:10px;overflow:hidden;z-index:2;}
+#progress{height:100%;width:0%;background:#00e0ff;box-shadow:0 0 10px #00e0ff;}
+
+/* HEADER - Origen: cabecera fija que contiene el logo animado (logo.css / logo.js). */
+header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:center;align-items:center;padding:30px 40px 20px;z-index:10;}
+.top-logo{display:flex;justify-content:center;align-items:center;}
+
+/* HERO - Origen: bloque central del index con titulo institucional y efectos de luz. */
+.hero{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:100%;display:flex;justify-content:center;align-items:center;text-align:center;padding:40px 20px;overflow:hidden;min-height:auto;}
+/* Origen: capas visuales decorativas del hero para profundidad (glow + scanline). */
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top,left,rgba(0,224,255,0.16),transparent 40%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.35));pointer-events:none;mix-blend-mode:screen;z-index:-1;}
+.hero::after{content:'';position:absolute;left:-10%;top:20%;width:130%;height:120%;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(0,224,255,0.08) 20px,rgba(0,224,255,0.08) 21px);opacity:0.15;transform:translateX(-100%);animation:scanline 18s linear infinite;z-index:-1;}
+.hero-content{max-width:800px;position:relative;z-index:2;}
+/* Origen: tipografia dinamica solicitada para el titulo principal (gradiente animado no solido). */
+.hero h1{position:relative;display:inline-block;font-size:64px;margin-bottom:18px;line-height:1.02;background:linear-gradient(90deg,#00e0ff 0%,#9333ea 30%,#00e0ff 58%,#9333ea 82%,#00e0ff 100%);background-size:260% 260%;-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.02em;will-change:background-position,filter;transition:letter-spacing .35s ease,transform .35s ease;animation:fadeInUp 1s ease forwards,titleGradientShift 5.2s linear infinite 1s,titleGlowPulse 3.1s ease-in-out infinite 1s;opacity:0;}
+.hero h1:hover{letter-spacing:.045em;transform:translateY(-2px) scale(1.01);}
+.hero p{font-size:1.2rem;color:#cbd5e1;margin-bottom:0;animation:fadeInUp 1s ease .15s forwards;opacity:0;}
+
+/* MENU CARDS - Origen: navegacion principal por tarjetas expandibles del menu. */
+.menu-cards{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:flex-end;gap:18px;padding:0 20px 18px;max-width:1400px;margin:0 auto;width:100%;overflow-x:auto;scrollbar-width:none;}
+.menu-cards::-webkit-scrollbar{display:none;}
+.menu-card{background:rgba(4,16,36,0.82);border:1px solid rgba(0,200,255,0.32);border-radius:28px;padding:18px 18px 16px;backdrop-filter:blur(24px);box-shadow:0 20px 60px rgba(0,80,150,0.24), inset 0 0 0.5px rgba(255,255,255,0.08);color:white;transition:width 0.45s ease,transform 0.45s ease,box-shadow 0.45s ease,background 0.45s ease;display:flex;flex-direction:column;align-items:flex-start;text-align:left;position:relative;width:150px;min-height:120px;overflow:hidden;}
+.menu-card::before{content:'';position:absolute;inset:0;border-radius:28px;padding:1px;background:linear-gradient(180deg,rgba(0,255,255,0.28),rgba(0,160,255,0.15));mask:linear-gradient(#fff 0 0);
+pointer-events:none;}
+.menu-card::after{content:'';position:absolute;inset:0;border-radius:28px;box-shadow:0 0 40px rgba(0,210,255,0.18), inset 0 0 25px rgba(0,210,255,0.06);opacity:0;transition:opacity 0.45s ease;pointer-events:none;}
+.menu-card:hover,.menu-card.expanded{width:320px;transform:translateY(-6px);box-shadow:0 26px 90px rgba(0,95,175,0.28), inset 0 0 1px rgba(255,255,255,0.06);background:rgba(2,12,28,0.92);}
+.menu-card:hover::after,.menu-card.expanded::after{opacity:1;}
+.card-header{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;z-index:1;}
+.card-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:rgba(2,50,95,0.55);box-shadow:0 0 18px rgba(0,220,255,0.22), inset 0 0 0.5px rgba(255,255,255,0.12);border:1px solid rgba(0,210,255,0.38);overflow:hidden;}
+.card-icon img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 4px rgba(0,220,255,0.45));}
+.menu-card h3{margin:0;font-size:1rem;color:#e8f9ff;text-shadow:0 0 14px rgba(0,210,255,0.16);line-height:1.2;text-align:center;}
+.submenu{opacity:0;max-height:0;overflow:hidden;transition:max-height 0.45s ease,opacity 0.45s ease,padding 0.45s ease,margin-top 0.45s ease;width:100%;margin-top:0;padding:0;}
+.menu-card:hover .submenu,.menu-card.expanded .submenu{opacity:1;max-height:260px;padding-top:16px;margin-top:10px;}
+.submenu a{display:block;color:#c7e8ff;text-decoration:none;padding:9px 0 8px 18px;font-size:0.95rem;position:relative;}
+.submenu a::before{content:'';position:absolute;left:4px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:2px;background:#40c7ff;}
+.submenu a:hover{color:#7dd3fc;}
+
+/* ANIMACIONES INDEX - Origen: transiciones usadas por hero y barrido de fondo. */
+@keyframes fadeInUp{
+ 0%{opacity:0;transform:translateY(20px);}
+ 100%{opacity:1;transform:translateY(0);}
+}
+@keyframes scanline{
+ 0%{transform:translateX(-100%);}
+ 100%{transform:translateX(100%);}
+}
+
+@keyframes titleGradientShift{
+ 0%,100%{background-position:0% 50%;}
+ 50%{background-position:100% 50%;}
+}
+
+@keyframes titleGlowPulse{
+ 0%,100%{filter:drop-shadow(0 0 8px rgba(120,235,255,0.28)) drop-shadow(0 0 22px rgba(60,190,255,0.2));}
+ 50%{filter:drop-shadow(0 0 14px rgba(160,245,255,0.56)) drop-shadow(0 0 34px rgba(35,205,255,0.35));}
+}
+
+/* FONDO 3D - Origen: canvas animado de fondo renderizado por index.js (#bg). */
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;pointer-events:none;}

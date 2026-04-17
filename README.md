@@ -8,6 +8,8 @@ Sitio web institucional de la carrera Ingeniería de Software, construido con HT
 - Fondo animado en canvas con efecto estilo hacker/dev.
 - Menú por tarjetas expandibles con submenús.
 - Sistema de modales cargados por partes desde archivos HTML independientes.
+- Arcade secreto accesible desde el logo (launcher + modal dedicado para juegos).
+- Modo de rendimiento para pausar efectos pesados mientras un juego está activo.
 - Galería de eventos con filtros y visor de imágenes (zoom/arrastre).
 - Calendario de eventos con selección de fecha.
 
@@ -28,13 +30,40 @@ El enfoque aplicado es:
 
 - `index.html`: estructura principal y registro de estilos/scripts.
 - `pages/modals/`: modales separados por secciones del menú.
+- `pages/modals/games/modal-juegos-secreto.html`: launcher del arcade y modal de jugador dedicado.
 - `assets/css/index.css`: estilos de la portada y componentes principales del index.
 - `assets/css/modal.css`: estilos de modales, galería, calendario, visor y animaciones de modal.
 - `assets/css/logo.css`: estilos específicos del bloque de logo.
+- `assets/css/effects.css`: estilos visuales globales para efectos del sitio.
+- `assets/css/games/secret-games.css`: estilos del arcade secreto (launcher y player).
 - `assets/js/index.js`: lógica del index (intro, canvas matrix, fondo animado, tarjetas).
 - `assets/js/modal.js`: carga e interacción de modales (apertura/cierre, galería y calendario).
 - `assets/js/image-viewer.js`: lógica aislada del visor de imágenes (zoom, drag, reset).
 - `assets/js/logo.js`: animación de partículas y comportamiento visual del logo.
+- `assets/js/effects.js`: efectos dinámicos globales con soporte de modo rendimiento para arcade.
+- `assets/js/games/secret-games.js`: lógica del launcher de juegos, apertura de player y carga por iframe.
+- `assets/games/`: juegos integrados de terceros (Mario, Pinball y Pac-Man).
+
+## Juegos Incorporados
+
+### Juegos completos
+
+- `FullScreenMario` en `assets/games/fullscreenmario/Source/index.html`.
+- `Pinball Schminball` en `assets/games/pinball-xr/dist/index.html` (versión gráfica, sin wireframe).
+- `Pac-Man` en `assets/games/pacman/index.html`.
+
+### Juegos en beta (placeholder)
+
+- `Firewall Defender`.
+- `Bug Hunter`.
+
+## Flujo del Arcade Secreto
+
+1. Usuario abre el acceso secreto desde el logo (`Abrir sistema secreto de juegos`).
+2. Se muestra un launcher con miniaturas de juegos.
+3. Al seleccionar un juego, el launcher se cierra y abre un modal dedicado solo al juego.
+4. Durante el juego se activa `arcade:performance` para reducir carga visual de fondo.
+5. Al cerrar el player, se desactiva el modo rendimiento y se restauran efectos del sitio.
 
 ## Tecnologías Usadas (con imágenes)
 
@@ -89,6 +118,18 @@ El enfoque aplicado es:
 
 - Iconos locales en `assets/images/`.
 
+### 9) Sistema de juegos secreto
+
+- Modal de launcher + modal player dedicado.
+- Carga de juegos vía iframe desde `assets/games/`.
+- Estilos dedicados del arcade en `assets/css/games/secret-games.css`.
+- Lógica dedicada en `assets/js/games/secret-games.js`.
+
+### 10) Optimización durante gameplay
+
+- Evento personalizado `arcade:performance` para reducir efectos pesados.
+- Integración en `assets/js/effects.js`.
+
 ## Cómo ejecutar localmente
 
 ### Opción rápida
@@ -123,17 +164,29 @@ Luego abre:
 ├─ assets/
 │  ├─ css/
 │  │  ├─ index.css
+│  │  ├─ effects.css
 │  │  ├─ modal.css
-│  │  └─ logo.css
+│  │  ├─ logo.css
+│  │  └─ games/
+│  │     └─ secret-games.css
 │  ├─ js/
+│  │  ├─ effects.js
+│  │  ├─ games/
+│  │  │  └─ secret-games.js
 │  │  ├─ index.js
 │  │  ├─ modal.js
 │  │  ├─ image-viewer.js
 │  │  └─ logo.js
+│  ├─ games/
+│  │  ├─ fullscreenmario/
+│  │  ├─ pinball-xr/
+│  │  └─ pacman/
 │  ├─ images/
 │  └─ docs/
 └─ pages/
    └─ modals/
+  ├─ games/
+  │  └─ modal-juegos-secreto.html
       ├─ menu-carrera.html
       ├─ menu-que-aprenderas.html
       ├─ menu-plan-estudios.html
